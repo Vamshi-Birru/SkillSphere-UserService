@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.micrometer.core.annotation.Timed;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/userService/user")
 public class UserController {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private UserService userService;
