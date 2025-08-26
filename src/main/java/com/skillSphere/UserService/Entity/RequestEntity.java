@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 public class RequestEntity {
-    public class LoginRequest {
+    public static class LoginRequest {
 
         private String email;
         private String password;
