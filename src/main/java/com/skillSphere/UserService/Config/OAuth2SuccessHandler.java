@@ -39,7 +39,7 @@ public  class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         UserRole role = oAuth2User.getAttribute("role");
 
         UserEntity user = userRepo.findByEmailIgnoreCase(email)
-                .orElseGet(() -> userRepo.save(new UserEntity(null,firstName,lastName,email,"OAUTH2_USER",null, role,null,null,null)));
+                .orElseGet(() -> userRepo.save(new UserEntity(null,firstName,lastName,email,"OAUTH2_USER",null, role,null,null,null,0.0)));
 
         String jwt = jwtUtil.generateToken(new User(user.getEmail(), "OAUTH2_USER", List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))));
         response.sendRedirect("http://localhost:3000/oauth-success?token=" + jwt);

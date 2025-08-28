@@ -58,5 +58,8 @@ public class RequestEntity {
         @Setter
         private  List<Long> learnerSkills;
 
+        @Getter
+        @Setter
+        private Double ratings;
     }
 }

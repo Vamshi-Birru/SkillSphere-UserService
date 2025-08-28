@@ -1,16 +1,14 @@
 package com.skillSphere.UserService.Controller;
 
 import com.skillSphere.UserService.Entity.UserEntity;
+import com.skillSphere.UserService.Projection.UserSummary;
 import com.skillSphere.UserService.Response.ApiResponse;
 import com.skillSphere.UserService.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.micrometer.core.annotation.Timed;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,10 +40,20 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<ApiResponse<?>> getAllUsers(){
 
-        List<UserEntity> users = userService.getAll();
+        List<UserSummary> users = userService.getAll();
         Map<String, Object> data = new HashMap<>();
         data.put("users", users);
-        System.out.println(users.get(0));
+        return ResponseEntity.ok(new ApiResponse<>("success", 200, data, "Users fetched successfully"));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<ApiResponse<?>> getUsersWithCount(@RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int pageSize,
+                                                            @RequestParam(defaultValue = "5") int count){
+        System.out.println("count: " + count);
+        List<UserSummary> users = userService.getUsersWithCount(page,pageSize, count);
+        Map<String,Object> data = new HashMap<>();
+        data.put("users", users);
         return ResponseEntity.ok(new ApiResponse<>("success", 200, data, "Users fetched successfully"));
     }
 }

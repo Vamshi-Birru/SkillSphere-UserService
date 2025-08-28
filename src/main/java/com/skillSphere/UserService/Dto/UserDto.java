@@ -45,4 +45,7 @@ public class UserDto {
     @JsonProperty("learnerskills")
     private List<Long> learnerSkills;
 
+    @JsonProperty("ratings")
+    private double ratings;
+
 }

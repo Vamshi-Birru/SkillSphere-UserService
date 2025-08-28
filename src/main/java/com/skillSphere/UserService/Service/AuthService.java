@@ -26,7 +26,7 @@ public class AuthService {
     private final AuthenticationManager authManager;
 
     public AuthResponse register(RequestEntity.RegisterRequest req) {
-        UserEntity user = new UserEntity(null,req.getFirstName(), req.getLastName(), req.getEmail(), passwordEncoder.encode(req.getPassword()),req.getDescription(), req.getRole(),req.getPhoneNumber(),req.getMentorshipSkills(),req.getLearnerSkills());
+        UserEntity user = new UserEntity(null,req.getFirstName(), req.getLastName(), req.getEmail(), passwordEncoder.encode(req.getPassword()),req.getDescription(), req.getRole(),req.getPhoneNumber(),req.getMentorshipSkills(),req.getLearnerSkills(),req.getRatings());
         userRepo.save(user);
         String token = jwtUtil.generateToken(
                 new User(req.getEmail(), req.getPassword(),  List.of(new SimpleGrantedAuthority("ROLE_" + req.getRole())))
