@@ -54,5 +54,5 @@ public class UserEntity  {
     private List<Long> learnerSkills;
 
     @Column(name="ratings", nullable = true)
-    private double ratings;
+    private Double ratings;
 }
