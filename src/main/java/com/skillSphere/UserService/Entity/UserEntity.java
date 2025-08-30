@@ -52,4 +52,7 @@ public class UserEntity  {
 
     @Column(name = "learner_skills", nullable = true)
     private List<Long> learnerSkills;
+
+    @Column(name="ratings", nullable = true)
+    private Double ratings;
 }
