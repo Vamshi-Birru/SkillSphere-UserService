@@ -1,7 +1,7 @@
 package com.skillSphere.UserService.Controller;
 
+import com.skillSphere.UserService.Dto.UserSummaryDto;
 import com.skillSphere.UserService.Entity.UserEntity;
-import com.skillSphere.UserService.Projection.UserSummary;
 import com.skillSphere.UserService.Response.ApiResponse;
 import com.skillSphere.UserService.Service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<ApiResponse<?>> getAllUsers(){
 
-        List<UserSummary> users = userService.getAll();
+        List<UserSummaryDto> users = userService.getAll();
         Map<String, Object> data = new HashMap<>();
         data.put("users", users);
         return ResponseEntity.ok(new ApiResponse<>("success", 200, data, "Users fetched successfully"));
@@ -51,7 +51,7 @@ public class UserController {
                                                             @RequestParam(defaultValue = "10") int pageSize,
                                                             @RequestParam(defaultValue = "5") int count){
         System.out.println("count: " + count);
-        List<UserSummary> users = userService.getUsersWithCount(page,pageSize, count);
+        List<UserSummaryDto> users = userService.getUsersWithCount(page,pageSize, count);
         Map<String,Object> data = new HashMap<>();
         data.put("users", users);
         return ResponseEntity.ok(new ApiResponse<>("success", 200, data, "Users fetched successfully"));

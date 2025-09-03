@@ -1,10 +1,11 @@
 package com.skillSphere.UserService.Repository;
 
+import com.skillSphere.UserService.Dto.UserSummaryDto;
 import com.skillSphere.UserService.Entity.UserEntity;
-import com.skillSphere.UserService.Projection.UserSummary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Page;
@@ -18,7 +19,11 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
     Optional<UserEntity> findByEmailIgnoreCase(String email);
 
-    List<UserSummary> findAllProjectedBy();
+    @Query("SELECT new com.skillSphere.UserService.Dto.UserSummaryDto(u.email, u.firstName, u.description, u.ratings) " +
+            "FROM UserEntity u")
+    List<UserSummaryDto> findAllProjectedBy();
 
-    Page<UserSummary> findAllProjectedBy(Pageable pageable);
+    @Query("SELECT new com.skillSphere.UserService.Dto.UserSummaryDto(u.email, u.firstName, u.description, u.ratings) " +
+            "FROM UserEntity u")
+    Page<UserSummaryDto> findAllProjectedBy(Pageable pageable);
 }
